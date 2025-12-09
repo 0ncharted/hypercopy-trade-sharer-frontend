@@ -323,24 +323,9 @@ async function fetchUserState(user) {
   const r = await fetch(INFO_API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "userState", user })
+    body: JSON.stringify({ type: "subAccounts", user })
   });
-  const data = await r.json();
-  if (dry) return data;
-  const fresh = data.filter(x => Number(x.time) > lastTime);
-  if (fresh.length) lastTime = Math.max(...fresh.map(x => Number(x.time)));
-  localStorage.setItem('lastTime', lastTime.toString());
-  return fresh;
-}
-
-async function fetchUserState(user) {
-  const r = await fetch(INFO_API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "userState", user })
-  });
-  const data = await r.json();
-  return data;
+  return await r.json();
 }
 
 async function mirrorTrade(t) {
