@@ -69,7 +69,7 @@ async function registerLeader() {
 
   showStatus("Registering...");
   try {
-    const response = await fetch('http://localhost:3000/api/register', {
+    const response = await fetch('https://hypercopy-trade-sharer-backend.vercel.app/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ wallet, code })
@@ -153,7 +153,7 @@ async function initCopier() {
     showStatus("Verifying referral code...");
     // keep your existing verify code here
     try {
-      const response = await fetch(`http://localhost:3000/api/verify?wallet=${encodeURIComponent(targetWallet)}&code=${encodeURIComponent(referralCode)}`);
+      const response = await fetch(`https://hypercopy-trade-sharer-backend.vercel.app/api/verify?wallet=${encodeURIComponent(targetWallet)}&code=${encodeURIComponent(referralCode)}`);
       const data = await response.json();
       if (!data.valid) {
         showError(data.message || "Invalid referral code for this wallet");
