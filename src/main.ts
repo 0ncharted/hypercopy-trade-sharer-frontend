@@ -1,5 +1,8 @@
 import { MiniAppSDK } from "@basedone/miniapp-sdk";
 
+const INFO_API_URL = window.location.hostname.includes('testnet')
+  ? 'https://api.hyperliquid-testnet.xyz/info'
+  : 'https://api.hyperliquid.xyz/info';
 let client;
 let targetWallet;
 let referralCode;
@@ -304,7 +307,7 @@ function startPolling() {
 }
 
 async function fetchUserFills(user, dry = false) {
-  const r = await fetch("https://api.hyperliquid.xyz/info", {
+    const r = await fetch(INFO_API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ type: "userFills", user })
@@ -316,7 +319,15 @@ async function fetchUserFills(user, dry = false) {
   localStorage.setItem('lastTime', lastTime.toString());
   return fresh;
 }
-
+async function fetchUserState(user) {
+  const r = await fetch(INFO_API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ type: "userState", user })
+  });
+  const data = await r.json();
+  return data;
+}
 
 async function mirrorTrade(t) {
   showStatus(`Copying ${t.symbol} ${t.side}...`);
