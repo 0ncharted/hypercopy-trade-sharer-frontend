@@ -316,14 +316,7 @@ async function fetchUserFills(user, dry = false) {
   localStorage.setItem('lastTime', lastTime.toString());
   return fresh;
 }
-async function fetchUserState(user) {
-  const r = await fetch(INFO_API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "subAccounts", user })
-  });
-  return await r.json();
-}
+
 
 async function mirrorTrade(t) {
   showStatus(`Copying ${t.symbol} ${t.side}...`);
