@@ -304,7 +304,7 @@ function startPolling() {
 }
 
 async function fetchUserFills(user, dry = false) {
-  const r = await fetch("https://api.hyperliquid-testnet.xyz/info", {
+  const r = await fetch("https://api.hyperliquid.xyz/info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ type: "userFills", user })
